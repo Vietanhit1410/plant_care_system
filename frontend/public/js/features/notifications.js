@@ -1,5 +1,5 @@
-import { apiClient } from '../core/api-client.js';
-import { formatDateTime, renderErrorState, renderEmptyState } from '../core/ui-helpers.js';
+import { apiClient } from '../core/api_client.js';
+import { formatDateTime, renderErrorState, renderEmptyState } from '../core/ui_helpers.js';
 
 export async function loadNotifications() {
   try {
@@ -41,24 +41,24 @@ export function renderNotifications({ root, items = [], onClose = null }) {
   const html = Object.entries(grouped).map(([category, notifs]) => {
     const label = categoryLabels[category] || category;
     const items = notifs.map((notif) => `
-      <div class="notification-item notification-item--${category}" data-notification-id="${notif?.id || ''}">
-        <div class="notification-item__header">
-          <h4 class="notification-item__title">${notif?.title || 'Thông báo'}</h4>
-          <span class="notification-item__time">${formatDateTime(notif?.timestamp || notif?.created_at)}</span>
+      <div class="notification_item notification_item_variant_${category}" data_notification_id="${notif?.id || ''}">
+        <div class="notification_item__header">
+          <h4 class="notification_item__title">${notif?.title || 'Thông báo'}</h4>
+          <span class="notification_item__time">${formatDateTime(notif?.timestamp || notif?.created_at)}</span>
         </div>
-        <p class="notification-item__message">${notif?.message || notif?.description || ''}</p>
-        ${notif?.details ? `<p class="notification-item__details">${notif.details}</p>` : ''}
-        <div class="notification-item__actions">
-          ${notif?.action_url ? `<a href="${notif.action_url}" class="notification-item__link">Xem chi tiết →</a>` : ''}
-          <button class="notification-item__dismiss" type="button" data-dismiss-notification="${notif?.id || ''}">✕ Đóng</button>
+        <p class="notification_item__message">${notif?.message || notif?.description || ''}</p>
+        ${notif?.details ? `<p class="notification_item__details">${notif.details}</p>` : ''}
+        <div class="notification_item__actions">
+          ${notif?.action_url ? `<a href="${notif.action_url}" class="notification_item__link">Xem chi tiết →</a>` : ''}
+          <button class="notification_item__dismiss" type="button" data_dismiss_notification="${notif?.id || ''}">✕ Đóng</button>
         </div>
       </div>
     `).join('');
 
     return `
-      <section class="notification-category">
-        <h3 class="notification-category__title">${label}</h3>
-        <div class="notification-list">
+      <section class="notification_category">
+        <h3 class="notification_category__title">${label}</h3>
+        <div class="notification_list">
           ${items}
         </div>
       </section>
@@ -72,10 +72,10 @@ export function renderNotifications({ root, items = [], onClose = null }) {
   `;
 
   // Attach dismiss handlers
-  root.querySelectorAll('[data-dismiss-notification]').forEach((btn) => {
+  root.querySelectorAll('[data_dismiss_notification]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const notificationId = btn.getAttribute('data-dismiss-notification');
-      const item = root.querySelector(`[data-notification-id="${notificationId}"]`);
+      const notificationId = btn.getAttribute('data_dismiss_notification');
+      const item = root.querySelector(`[data_notification_id="${notificationId}"]`);
       if (item) {
         item.style.opacity = '0.5';
         btn.disabled = true;
@@ -89,8 +89,8 @@ export function renderNotifications({ root, items = [], onClose = null }) {
 export function renderNotificationsPreview({ root, items = [], onShowAll = null }) {
   if (!Array.isArray(items) || items.length === 0) {
     root.innerHTML = `
-      <article class="card notifications-preview">
-        <div class="notifications-preview__header">
+      <article class="card notifications_preview">
+        <div class="notifications_preview__header">
           <h3 class="card__title">Thông báo</h3>
         </div>
         <p class="card__meta">Chưa có thông báo nào.</p>
@@ -105,31 +105,31 @@ export function renderNotificationsPreview({ root, items = [], onShowAll = null 
   const html = previewItems.map((notif) => {
     const categoryClass = notif?.category || notif?.type || 'general';
     return `
-      <div class="notification-preview-item notification-preview-item--${categoryClass}">
-        <div class="notification-preview-item__dot"></div>
-        <div class="notification-preview-item__content">
-          <p class="notification-preview-item__title">${notif?.title || 'Thông báo'}</p>
-          <p class="notification-preview-item__time">${formatDateTime(notif?.timestamp || notif?.created_at)}</p>
+      <div class="notification_preview_item notification_preview_item_variant_${categoryClass}">
+        <div class="notification_preview_item__dot"></div>
+        <div class="notification_preview_item__content">
+          <p class="notification_preview_item__title">${notif?.title || 'Thông báo'}</p>
+          <p class="notification_preview_item__time">${formatDateTime(notif?.timestamp || notif?.created_at)}</p>
         </div>
       </div>
     `;
   }).join('');
 
   root.innerHTML = `
-    <article class="card notifications-preview">
-      <div class="notifications-preview__header">
+    <article class="card notifications_preview">
+      <div class="notifications_preview__header">
         <h3 class="card__title">Thông báo (${items.length})</h3>
-        ${hasMore ? `<span class="notifications-preview__badge">${items.length}</span>` : ''}
+        ${hasMore ? `<span class="notifications_preview__badge">${items.length}</span>` : ''}
       </div>
-      <div class="notifications-preview-list">
+      <div class="notifications_preview_list">
         ${html}
       </div>
-      ${onShowAll ? `<button class="notifications-preview__link" type="button" data-show-all-notifications>Xem tất cả →</button>` : ''}
+      ${onShowAll ? `<button class="notifications_preview__link" type="button" data_show_all_notifications>Xem tất cả →</button>` : ''}
     </article>
   `;
 
   if (onShowAll) {
-    const btn = root.querySelector('[data-show-all-notifications]');
+    const btn = root.querySelector('[data_show_all_notifications]');
     if (btn) btn.addEventListener('click', onShowAll);
   }
 }

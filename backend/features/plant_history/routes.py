@@ -5,7 +5,7 @@ from backend.core.database import fetch_plant_history_items
 
 plant_history_bp = Blueprint('plant_history', __name__)
 
-API_PLANT_HISTORY = os.getenv('API_PLANT_HISTORY', '/api/plant-history')
+API_PLANT_HISTORY = os.getenv('API_PLANT_HISTORY', '/api/plant_history')
 
 
 @plant_history_bp.get(API_PLANT_HISTORY)

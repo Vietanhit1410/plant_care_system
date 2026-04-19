@@ -1,9 +1,9 @@
-import { apiClient } from '../core/api-client.js';
-import { formatDateTime, renderEmptyState } from '../core/ui-helpers.js';
+import { apiClient } from '../core/api_client.js';
+import { formatDateTime, renderEmptyState } from '../core/ui_helpers.js';
 
 export async function loadCurrentStatus() {
   try {
-    return await apiClient.request('/api/current-status');
+    return await apiClient.request('/api/current_status');
   } catch (error) {
     console.warn('Failed to load current status:', error);
     return { _error: error.message };
@@ -45,51 +45,51 @@ export function renderCurrentStatus({ root, status }) {
   const sourceLabel = status?.source === 'auto' ? '🤖 Tự động' : '👤 Thủ công';
 
   root.innerHTML = `
-    <article class="card plant-status">
-      <div class="plant-status__header">
+    <article class="card plant_status">
+      <div class="plant_status__header">
         <div>
           <h3 class="card__title">Trạng thái Cây</h3>
           <p class="card__meta">Đánh giá sức khỏe hiện tại</p>
         </div>
-        <div class="plant-status__health-badge" style="border-color: ${healthColor}; color: ${healthColor};">
+        <div class="plant_status__health_badge" style="border-color: ${healthColor}; color: ${healthColor};">
           ${healthScore}${healthScore !== '-' ? '%' : ''}
         </div>
       </div>
 
-      <div class="plant-status__grid">
-        <div class="plant-status__metric">
-          <div class="plant-status__metric-icon" style="background-color: rgba(127, 200, 248, 0.2); color: #1c5d82;">💧</div>
-          <div class="plant-status__metric-content">
-            <div class="plant-status__metric-label">Độ ẩm đất</div>
-            <div class="plant-status__metric-value" style="color: ${moistureColor};">${moistureLevel}${moistureLevel !== '-' ? '%' : ''}</div>
+      <div class="plant_status__grid">
+        <div class="plant_status__metric">
+          <div class="plant_status__metric_icon" style="background-color: rgba(127, 200, 248, 0.2); color: #1c5d82;">💧</div>
+          <div class="plant_status__metric_content">
+            <div class="plant_status__metric_label">Độ ẩm đất</div>
+            <div class="plant_status__metric_value" style="color: ${moistureColor};">${moistureLevel}${moistureLevel !== '-' ? '%' : ''}</div>
           </div>
         </div>
 
-        <div class="plant-status__metric">
-          <div class="plant-status__metric-icon" style="background-color: rgba(46, 159, 107, 0.2); color: #1f6f34;">🌱</div>
-          <div class="plant-status__metric-content">
-            <div class="plant-status__metric-label">Tình trạng</div>
-            <div class="plant-status__metric-value">${status?.condition || status?.status || 'Bình thường'}</div>
+        <div class="plant_status__metric">
+          <div class="plant_status__metric_icon" style="background-color: rgba(46, 159, 107, 0.2); color: #1f6f34;">🌱</div>
+          <div class="plant_status__metric_content">
+            <div class="plant_status__metric_label">Tình trạng</div>
+            <div class="plant_status__metric_value">${status?.condition || status?.status || 'Bình thường'}</div>
           </div>
         </div>
 
-        <div class="plant-status__metric">
-          <div class="plant-status__metric-icon" style="background-color: rgba(240, 180, 41, 0.2); color: #8a6b28;">📋</div>
-          <div class="plant-status__metric-content">
-            <div class="plant-status__metric-label">Nguồn</div>
-            <div class="plant-status__metric-value">${sourceLabel}</div>
+        <div class="plant_status__metric">
+          <div class="plant_status__metric_icon" style="background-color: rgba(240, 180, 41, 0.2); color: #8a6b28;">📋</div>
+          <div class="plant_status__metric_content">
+            <div class="plant_status__metric_label">Nguồn</div>
+            <div class="plant_status__metric_value">${sourceLabel}</div>
           </div>
         </div>
       </div>
 
       ${status?.note || status?.notes ? `
-        <div class="plant-status__notes">
-          <h4 class="plant-status__notes-title">Ghi chú</h4>
-          <p class="plant-status__notes-content">${status.note || status.notes}</p>
+        <div class="plant_status__notes">
+          <h4 class="plant_status__notes_title">Ghi chú</h4>
+          <p class="plant_status__notes_content">${status.note || status.notes}</p>
         </div>
       ` : ''}
 
-      <div class="plant-status__footer">
+      <div class="plant_status__footer">
         <small>Cập nhật: ${lastUpdated}</small>
       </div>
     </article>

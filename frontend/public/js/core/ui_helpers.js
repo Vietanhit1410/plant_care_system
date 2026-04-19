@@ -8,7 +8,7 @@ export function renderLoadingState(message = 'Đang tải...') {
 
 export function renderErrorState(title, message, onRetry = null) {
   const retryButton = onRetry ? `
-    <div class="shell__error-retry">
+    <div class="shell__error_retry">
       <button onclick="${onRetry}">Thử lại</button>
     </div>
   ` : '';
@@ -24,10 +24,10 @@ export function renderErrorState(title, message, onRetry = null) {
 
 export function renderEmptyState(icon, title, message) {
   return `
-    <div class="empty-state">
-      <div class="empty-state__icon">${icon}</div>
-      <h3 class="empty-state__title">${title}</h3>
-      <p class="empty-state__message">${message}</p>
+    <div class="empty_state">
+      <div class="empty_state__icon">${icon}</div>
+      <h3 class="empty_state__title">${title}</h3>
+      <p class="empty_state__message">${message}</p>
     </div>
   `;
 }
@@ -96,10 +96,10 @@ export function showDetailPopup(title, dataObj, imageSrc = null) {
       .join('');
 
   panelRoot.innerHTML = `
-    <section class="modal__panel-content" style="background:#fff; padding: var(--space-5); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+    <section class="modal__panel_content" style="background:#fff; padding: var(--space-5); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
       <div class="modal__header" style="display:flex; justify-content:space-between; margin-bottom: var(--space-4); align-items:center;">
         <h3 class="card__title" style="margin:0; font-size: 1.2rem;">${title}</h3>
-        <button class="modal__close" type="button" data-close-popup style="border:none; background:none; font-size:1.5rem; cursor:pointer; color: var(--text-muted);">&times;</button>
+        <button class="modal__close" type="button" data_close_popup style="border:none; background:none; font-size:1.5rem; cursor:pointer; color: var(--text-muted);">&times;</button>
       </div>
       <div class="modal__body">
         ${imageSrc ? `<figure style="margin: 0 0 var(--space-4) 0;"><img src="${imageSrc}" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--border); display:block;"/></figure>` : ''}
@@ -108,7 +108,7 @@ export function showDetailPopup(title, dataObj, imageSrc = null) {
     </section>
   `;
 
-  const closeBtn = panelRoot.querySelector('[data-close-popup]');
+  const closeBtn = panelRoot.querySelector('[data_close_popup]');
   closeBtn.addEventListener('click', hideDetailPopup);
 
   detailOverlayRoot.setAttribute('aria-hidden', 'false');

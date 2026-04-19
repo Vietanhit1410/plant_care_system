@@ -1,16 +1,16 @@
 import os
 from flask import Blueprint, jsonify
 
-from backend.features.plant_moisture.service import get_moisture_timeline
+from backend.features.plant_timeline.service import get_plant_timeline
 
-plant_moisture_bp = Blueprint('plant_moisture', __name__)
+plant_timeline_bp = Blueprint('plant_timeline', __name__)
 
-API_PLANT_MOISTURE_CURRENT = os.getenv('API_PLANT_MOISTURE_CURRENT', '/api/plant-moisture/current')
+API_PLANT_TIMELINE_CURRENT = os.getenv('API_PLANT_TIMELINE_CURRENT', '/api/plant_timeline/current')
 
 
-@plant_moisture_bp.get(API_PLANT_MOISTURE_CURRENT)
-def current_moisture():
-    timeline = get_moisture_timeline()
+@plant_timeline_bp.get(API_PLANT_TIMELINE_CURRENT)
+def current_timeline():
+    timeline = get_plant_timeline()
     current = next((item for item in timeline if item.get('state') == 'current'), timeline[3] if len(timeline) > 3 else None)
     snapshot = current.get('snapshot') if current else None
 

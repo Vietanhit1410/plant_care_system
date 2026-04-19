@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 from backend.core.database import PLANT_IMAGE_DIR, ensure_media_dirs, insert_plant_observation
 from backend.features.environment.service import get_current_weather, read_cached_weather_snapshot
-from backend.features.plant_moisture.service import update_timeline_cache_with_observation
+from backend.features.plant_timeline.service import update_timeline_cache_with_observation
 
 TIME_FORMAT = "%Y-%m-%d %H:%M"
 DEFAULT_LAT = float(os.getenv("OPENWEATHER_LAT", "21.0285"))

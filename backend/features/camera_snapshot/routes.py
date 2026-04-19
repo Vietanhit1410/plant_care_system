@@ -5,7 +5,7 @@ from backend.features.camera_snapshot.service import capture_camera_snapshot
 
 camera_snapshot_bp = Blueprint('camera_snapshot', __name__)
 
-API_CAMERA_SNAPSHOT_CAPTURE = os.getenv('API_CAMERA_SNAPSHOT_CAPTURE', '/api/camera-snapshot/capture')
+API_CAMERA_SNAPSHOT_CAPTURE = os.getenv('API_CAMERA_SNAPSHOT_CAPTURE', '/api/camera_snapshot/capture')
 
 
 @camera_snapshot_bp.get(API_CAMERA_SNAPSHOT_CAPTURE)

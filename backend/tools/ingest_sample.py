@@ -13,7 +13,7 @@ os.environ.setdefault(
 import json
 from datetime import datetime
 
-from backend.features.plant_moisture.service import write_timeline_cache, update_timeline_cache_with_observation
+from backend.features.plant_timeline.service import write_timeline_cache, update_timeline_cache_with_observation
 
 
 def main():

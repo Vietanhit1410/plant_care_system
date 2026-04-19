@@ -1,0 +1,17 @@
+.plant_history {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.plant_history__header {
+  margin-bottom: 0;
+}
+
+.plant_history__timeline {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.plant_history__item {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbf8 100%);
+}

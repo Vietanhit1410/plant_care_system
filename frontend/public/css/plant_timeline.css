@@ -1,4 +1,4 @@
-.plant-moisture {
+.plant_timeline {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.plant-moisture__header {
+.plant_timeline__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,20 +17,20 @@
   flex-wrap: wrap;
 }
 
-.plant-moisture__header .card__title {
+.plant_timeline__header .card__title {
   margin: 0;
   font-size: 1.05rem;
   color: var(--text);
 }
 
-.plant-moisture__meta-row {
+.plant_timeline__meta_row {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   align-items: center;
 }
 
-.plant-moisture__meta-pill {
+.plant_timeline__meta_pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -42,7 +42,7 @@
   border: 1px solid var(--border);
 }
 
-.plant-moisture__timeline {
+.plant_timeline__timeline {
   display: flex;
   gap: var(--space-4);
   width: 100%;
@@ -52,16 +52,16 @@
   align-items: stretch;
 }
 
-.plant-moisture__timeline::-webkit-scrollbar {
+.plant_timeline__timeline::-webkit-scrollbar {
   height: 8px;
 }
 
-.plant-moisture__timeline::-webkit-scrollbar-thumb {
+.plant_timeline__timeline::-webkit-scrollbar-thumb {
   background: rgba(47, 143, 70, 0.22);
   border-radius: 999px;
 }
 
-.plant-moisture__timeline .timeline__item {
+.plant_timeline__timeline .timeline__item {
   flex: 1 1 0;
   min-width: 0;
   align-content: start;
@@ -72,59 +72,59 @@
   padding: var(--space-4);
 }
 
-.plant-moisture__timeline .timeline__item--current {
+.plant_timeline__timeline .timeline__item_current {
   border-color: rgba(47, 143, 70, 0.25);
   box-shadow: 0 14px 34px rgba(47, 143, 70, 0.12);
 }
 
-.plant-moisture__timeline .timeline__item--prediction {
+.plant_timeline__timeline .timeline__item_prediction {
   background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
   border-style: dashed;
 }
 
-.plant-moisture__timeline .timeline__content {
+.plant_timeline__timeline .timeline__content {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.plant-moisture__timeline .timeline__title {
+.plant_timeline__timeline .timeline__title {
   margin: 0 0 2px 0;
   font-weight: 600;
   color: var(--text);
 }
 
-.plant-moisture__timeline .timeline__desc {
+.plant_timeline__timeline .timeline__desc {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-.plant-moisture__timeline-image-wrap {
+.plant_timeline__timeline_image_wrap {
   margin: var(--space-2) 0 0;
   display: grid;
   gap: var(--space-2);
 }
 
-.plant-moisture__timeline-image,
-.plant-moisture__timeline-image.placeholder,
-.plant-moisture__snapshot-image,
-.plant-moisture__snapshot-placeholder {
+.plant_timeline__timeline_image,
+.plant_timeline__timeline_image.placeholder,
+.plant_timeline__snapshot_image,
+.plant_timeline__snapshot_placeholder {
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg-soft);
 }
 
-.plant-moisture__timeline-image,
-.plant-moisture__snapshot-image {
+.plant_timeline__timeline_image,
+.plant_timeline__snapshot_image {
   aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
 }
 
-.plant-moisture__timeline-image.placeholder,
-.plant-moisture__snapshot-placeholder {
+.plant_timeline__timeline_image.placeholder,
+.plant_timeline__snapshot_placeholder {
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
@@ -133,7 +133,7 @@
   padding: var(--space-4);
 }
 
-.plant-moisture__snapshot-block {
+.plant_timeline__snapshot_block {
   display: grid;
   gap: var(--space-3);
   margin-top: var(--space-1);
@@ -141,18 +141,18 @@
   border-top: 1px solid rgba(47, 143, 70, 0.10);
 }
 
-.plant-moisture__snapshot {
+.plant_timeline__snapshot {
   margin: 0;
   display: grid;
   gap: var(--space-3);
 }
 
-.plant-moisture__timeline-note {
+.plant_timeline__timeline_note {
   color: var(--text-muted);
   font-size: 0.92rem;
 }
 
-.plant-moisture__history-button {
+.plant_timeline__history_button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -166,7 +166,7 @@
   box-shadow: 0 6px 14px rgba(23, 48, 31, 0.05);
 }
 
-.plant-moisture__history-button:hover {
+.plant_timeline__history_button:hover {
   background: linear-gradient(180deg, #f5fbf6, #e7f4ea);
 }
 
@@ -192,43 +192,94 @@
   overflow: auto;
 }
 
-.plant-history {
+.timeline_view {
   display: grid;
   gap: var(--space-5);
 }
 
-.plant-history__header {
-  margin-bottom: 0;
-}
-
-.plant-history__timeline {
+.timeline_view__block {
   display: grid;
   gap: var(--space-4);
 }
 
-.plant-history__item {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbf8 100%);
+.timeline_current_info {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.timeline_current_info__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.timeline_current_info__summary {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.timeline_current_info__error {
+  color: var(--danger);
+}
+
+.timeline_current_info__details {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-4);
+}
+
+.detail_list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.detail_list__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed rgba(31, 111, 52, 0.12);
+}
+
+.detail_list__row:last-child {
+  border-bottom: none;
+}
+
+.detail_list__label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.detail_list__value {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.is_hidden {
+  display: none;
 }
 
 @media (max-width: 1080px) {
-  .plant-moisture__timeline {
+  .plant_timeline__timeline {
     display: flex;
     flex-wrap: nowrap;
   }
 }
 
 @media (max-width: 720px) {
-  .plant-moisture__timeline {
+  .plant_timeline__timeline {
     display: flex;
     flex-wrap: nowrap;
   }
 
-  .plant-moisture__meta-row {
+  .plant_timeline__meta_row {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .plant-moisture__history-button {
+  .plant_timeline__history_button {
     width: 100%;
   }
 
@@ -240,5 +291,10 @@
   .modal__panel {
     width: 100%;
     max-height: 100%;
+  }
+
+  .detail_list__row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

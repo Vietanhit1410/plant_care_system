@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify
 
 current_status_bp = Blueprint('current_status', __name__)
 
-API_CURRENT_STATUS = os.getenv('API_CURRENT_STATUS', '/api/current-status')
+API_CURRENT_STATUS = os.getenv('API_CURRENT_STATUS', '/api/current_status')
 
 
 @current_status_bp.get(API_CURRENT_STATUS)

@@ -1,4 +1,4 @@
-import { apiClient } from '../core/api-client.js';
+import { apiClient } from '../core/api_client.js';
 
 const CACHE_KEY = 'plant_care_environment_cache';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
@@ -53,69 +53,69 @@ export function renderEnvironment({ root, environment }) {
   }
 
   const isCached = environment._cached ? '(từ cache)' : '';
-  const cachedBadge = environment._cached ? '<span class="data-cache-badge">📦 Dữ liệu từ cache</span>' : '';
+  const cachedBadge = environment._cached ? '<span class="data_cache_badge">📦 Dữ liệu từ cache</span>' : '';
 
   root.innerHTML = `
-    <article class="environment-card">
-      <div class="environment-card__header">
+    <article class="environment_card">
+      <div class="environment_card__header">
         <div>
-          <h3 class="environment-card__title">Thông tin thời tiết</h3>
-          <p class="environment-card__meta">Dữ liệu môi trường hiện tại ${isCached}</p>
+          <h3 class="environment_card__title">Thông tin thời tiết</h3>
+          <p class="environment_card__meta">Dữ liệu môi trường hiện tại ${isCached}</p>
         </div>
         ${cachedBadge}
       </div>
 
-      <div class="environment-grid">
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Thời tiết</div>
-            <div class="environment-metric__value">${environment?.weather || '-'}</div>
+      <div class="environment_grid">
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Thời tiết</div>
+            <div class="environment_metric__value">${environment?.weather || '-'}</div>
           </div>
-          <span class="environment-metric__icon">☀️</span>
+          <span class="environment_metric__icon">☀️</span>
         </div>
 
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Độ ẩm không khí</div>
-            <div class="environment-metric__value">${environment?.humidity ?? '-'}%</div>
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Độ ẩm không khí</div>
+            <div class="environment_metric__value">${environment?.humidity ?? '-'}%</div>
           </div>
-          <span class="environment-metric__icon">💧</span>
+          <span class="environment_metric__icon">💧</span>
         </div>
 
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Nhiệt độ</div>
-            <div class="environment-metric__value">${environment?.temperature ?? '-'}°C</div>
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Nhiệt độ</div>
+            <div class="environment_metric__value">${environment?.temperature ?? '-'}°C</div>
           </div>
-          <span class="environment-metric__icon">🌡️</span>
+          <span class="environment_metric__icon">🌡️</span>
         </div>
 
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Mây</div>
-            <div class="environment-metric__value">${environment?.clouds ?? '-'}%</div>
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Mây</div>
+            <div class="environment_metric__value">${environment?.clouds ?? '-'}%</div>
           </div>
-          <span class="environment-metric__icon">☁️</span>
+          <span class="environment_metric__icon">☁️</span>
         </div>
 
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Tốc độ gió</div>
-            <div class="environment-metric__value">${environment?.wind_speed ?? '-'} m/s</div>
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Tốc độ gió</div>
+            <div class="environment_metric__value">${environment?.wind_speed ?? '-'} m/s</div>
           </div>
-          <span class="environment-metric__icon">🍃</span>
+          <span class="environment_metric__icon">🍃</span>
         </div>
 
-        <div class="environment-metric">
-          <div class="environment-metric__body">
-            <div class="environment-metric__label">Lượng mưa</div>
-            <div class="environment-metric__value">${environment?.rain ?? environment?.precipitation ?? '-'} mm</div>
+        <div class="environment_metric">
+          <div class="environment_metric__body">
+            <div class="environment_metric__label">Lượng mưa</div>
+            <div class="environment_metric__value">${environment?.rain ?? environment?.precipitation ?? '-'} mm</div>
           </div>
-          <span class="environment-metric__icon">🌧️</span>
+          <span class="environment_metric__icon">🌧️</span>
         </div>
       </div>
 
-      <div class="environment-timestamp">
+      <div class="environment_timestamp">
         Cập nhật: ${environment?.timestamp ? new Date(environment.timestamp * 1000).toLocaleString('vi-VN') : '-'}
         ${environment?._error ? `<br><span style="color: var(--warning); font-size: 0.85rem;">${environment._error}</span>` : ''}
       </div>

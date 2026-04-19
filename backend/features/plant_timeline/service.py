@@ -139,7 +139,7 @@ def build_timeline_from_observations(observations: list[dict]) -> list[dict]:
     return timeline_items
 
 
-def get_moisture_timeline() -> list[dict]:
+def get_plant_timeline() -> list[dict]:
     cached = read_timeline_cache()
     if cached:
         return cached

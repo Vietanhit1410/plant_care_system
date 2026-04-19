@@ -133,7 +133,7 @@ def insert_plant_observation(
     return dict(row) if row else None
 
 
-def fetch_plant_moisture_timeline() -> list[dict]:
+def fetch_plant_timeline() -> list[dict]:
     observations = fetch_plant_observations()
     timeline = []
     for item in observations:
