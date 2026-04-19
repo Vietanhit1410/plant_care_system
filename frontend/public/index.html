@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hệ thống chăm sóc cây - Theo dõi trạng thái cây và môi trường thời gian thực">
+  <title>Plant Care System - Dashboard Chăm Sóc Cây</title>
+
+  <!-- Base Theme & Utilities -->
+  <link rel="stylesheet" href="./css/base-theme.css">
+
+  <!-- Feature Styles -->
+  <link rel="stylesheet" href="./css/environment.css">
+  <link rel="stylesheet" href="./css/plant-moisture.css">
+  <link rel="stylesheet" href="./css/plant_history.css">
+  <link rel="stylesheet" href="./css/plant-status.css">
+  <link rel="stylesheet" href="./css/notifications.css">
+  <link rel="stylesheet" href="./css/timeline.css">
+  <link rel="stylesheet" href="./css/camera.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="module">
+    import { bootstrapApp } from './js/app.js';
+
+    const app = document.getElementById('app');
+    if (app) {
+      bootstrapApp(app);
+    }
+  </script>
+</body>
+</html>

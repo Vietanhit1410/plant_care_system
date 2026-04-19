@@ -1,0 +1,9 @@
+{
+  "name": "plant-care-system-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "echo \"Open frontend/public/index.html in a browser or serve it with a static server\""
+  }
+}

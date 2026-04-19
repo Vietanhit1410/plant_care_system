@@ -1,0 +1,307 @@
+.notifications {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.notification-category {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.notification-category__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: var(--space-3);
+}
+
+.notification-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.notification-item {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  transition: all 0.2s ease;
+}
+
+.notification-item:hover {
+  box-shadow: var(--shadow-soft);
+  border-color: var(--primary);
+}
+
+.notification-item--warning {
+  border-left: 4px solid var(--warning);
+  background: rgba(240, 180, 41, 0.05);
+}
+
+.notification-item--error {
+  border-left: 4px solid var(--danger);
+  background: rgba(217, 76, 76, 0.05);
+}
+
+.notification-item--success {
+  border-left: 4px solid var(--success);
+  background: rgba(46, 159, 107, 0.05);
+}
+
+.notification-item--info {
+  border-left: 4px solid var(--secondary);
+  background: rgba(127, 200, 248, 0.05);
+}
+
+.notification-item--water_needed {
+  border-left: 4px solid var(--secondary);
+  background: rgba(127, 200, 248, 0.05);
+}
+
+.notification-item--plant_issue {
+  border-left: 4px solid var(--warning);
+  background: rgba(240, 180, 41, 0.05);
+}
+
+.notification-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.notification-item__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.notification-item__time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.notification-item__message {
+  margin: var(--space-2) 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.notification-item__details {
+  margin: var(--space-2) 0;
+  padding: var(--space-3);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-left: 2px solid var(--border);
+}
+
+.notification-item__actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  justify-content: flex-end;
+}
+
+.notification-item__link {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.notification-item__link:hover {
+  color: var(--primary-strong);
+}
+
+.notification-item__dismiss {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notification-item__dismiss:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(217, 76, 76, 0.05);
+}
+
+.notification-item__dismiss:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Notifications Preview */
+.notifications-preview {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.notifications-preview__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.notifications-preview__header .card__title {
+  margin: 0;
+}
+
+.notifications-preview__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.notifications-preview-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.notification-preview-item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg-soft);
+  border-radius: 6px;
+  border: 1px solid rgba(47, 143, 70, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.notification-preview-item:hover {
+  background: rgba(47, 143, 70, 0.08);
+  border-color: var(--primary);
+}
+
+.notification-preview-item--warning {
+  border-left: 3px solid var(--warning);
+}
+
+.notification-preview-item--error {
+  border-left: 3px solid var(--danger);
+}
+
+.notification-preview-item--success {
+  border-left: 3px solid var(--success);
+}
+
+.notification-preview-item--water_needed {
+  border-left: 3px solid var(--secondary);
+}
+
+.notification-preview-item--plant_issue {
+  border-left: 3px solid var(--warning);
+}
+
+.notification-preview-item__dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 6px;
+}
+
+.notification-preview-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-preview-item__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notification-preview-item__time {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.notifications-preview__link {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notifications-preview__link:hover {
+  background: var(--primary-soft);
+  border-color: var(--primary-strong);
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.empty-state__icon {
+  font-size: 3rem;
+  opacity: 0.6;
+}
+
+.empty-state__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.empty-state__message {
+  margin: 0;
+  color: var(--text-muted);
+  max-width: 300px;
+}
+
+@media (max-width: 720px) {
+  .notification-item__header {
+    flex-direction: column;
+  }
+
+  .notification-item__actions {
+    flex-direction: column;
+  }
+
+  .notifications-preview__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,144 @@
+.plant-status {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.plant-status__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.plant-status__header .card__title {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.plant-status__header .card__meta {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.plant-status__health-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 3px solid;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+}
+
+.plant-status__grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.plant-status__metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #f5fbf6, #ecf7ee);
+  border: 1px solid rgba(47, 143, 70, 0.12);
+  box-shadow: 0 10px 24px rgba(23, 48, 31, 0.05);
+}
+
+.plant-status__metric-icon {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+  font-size: 1.1rem;
+  flex: 0 0 auto;
+}
+
+.plant-status__metric-content {
+  display: grid;
+  gap: 2px;
+  text-align: right;
+  flex: 1;
+}
+
+.plant-status__metric-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.plant-status__metric-value {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.plant-status__notes {
+  padding: var(--space-4);
+  background: linear-gradient(135deg, rgba(240, 180, 41, 0.08), rgba(223, 242, 227, 0.08));
+  border: 1px solid rgba(240, 180, 41, 0.2);
+  border-radius: var(--radius-sm);
+}
+
+.plant-status__notes-title {
+  margin: 0 0 var(--space-2);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.plant-status__notes-content {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.plant-status__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 1080px) {
+  .plant-status__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .plant-status__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plant-status__header {
+    flex-direction: column;
+  }
+
+  .plant-status__health-badge {
+    align-self: flex-start;
+  }
+}
