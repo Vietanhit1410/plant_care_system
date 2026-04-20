@@ -1,5 +1,8 @@
 import { apiClient } from '../core/api_client.js';
 import { formatDateTime, renderEmptyState, showDetailPopup } from '../core/ui_helpers.js';
+import { renderFieldRows } from '../core/schema_renderer.js';
+
+const CURRENT_INFO_DETAIL_FIELDS = ['received_at', 'moisture', 'temperature', 'humidity', 'note', 'image_url'];
 
 function formatMoistureValue(entry) {
   const value = entry?.value ?? entry?.moisture ?? entry?.humidity ?? '-';
@@ -17,7 +20,7 @@ function formatTime(timestamp) {
   }
 }
 
-function renderTimelineItem(entry, label, modifier = '', indexStr = '') {
+function renderTimelineItem(entry, label, modifier = '', indexStr = '', moistureLabel = 'Độ ẩm đất') {
   if (!entry) {
     return `
       <div class="timeline__item ${modifier}" data-state="empty">
@@ -40,7 +43,7 @@ function renderTimelineItem(entry, label, modifier = '', indexStr = '') {
       <div class="timeline__content">
         <p class="timeline__title">${label}</p>
         <p class="timeline__desc">${formatTime(entry?.capturedAt || entry?.time || entry?.timestamp)}</p>
-        <p class="timeline__desc"><strong>Độ ẩm đất:</strong> ${formatMoistureValue(entry)}</p>
+        <p class="timeline__desc"><strong>${moistureLabel}:</strong> ${formatMoistureValue(entry)}</p>
         ${entry?.note ? `<p class="timeline__desc plant_timeline__timeline_note">${entry.note}</p>` : ''}
         <figure class="plant_timeline__timeline_image_wrap">
           ${snapshotSrc ? `<img class="plant_timeline__timeline_image" src="${snapshotSrc}" alt="${snapshotAlt}">` : '<div class="plant_timeline__timeline_image placeholder">Chưa có ảnh</div>'}
@@ -55,7 +58,7 @@ export async function loadPlantTimeline() {
   return apiClient.request('/api/plant_timeline/current');
 }
 
-export function renderPlantTimeline({ root, moisture, timeline = [], onShowHistory }) {
+export function renderPlantTimeline({ root, moisture, timeline = [], onShowHistory, schema }) {
   if (!moisture && timeline.length === 0) {
     root.innerHTML = `
       <article class="shell__error">
@@ -67,7 +70,7 @@ export function renderPlantTimeline({ root, moisture, timeline = [], onShowHisto
   }
 
   const timelineItems = Array.isArray(timeline) ? timeline : [];
-  const normalizedTimeline = timelineItems.length >= 5 ? timelineItems.slice(0, 5) : [
+  const normalizedTimeline = timelineItems.length >= 5 ? timelineItems : [
     ...timelineItems.slice(0, 3),
     timelineItems[3] || moisture,
     timelineItems[4] || moisture?.prediction || moisture?.forecast,
@@ -79,15 +82,17 @@ export function renderPlantTimeline({ root, moisture, timeline = [], onShowHisto
 
   const allItemsForClick = [...previousItems, currentItem, predictedItem];
 
+  const moistureFieldLabel = schema?.fields?.find(field => field.key === 'moisture')?.label || 'Độ ẩm đất';
+
   root.innerHTML = `
     <article class="plant_timeline">
       <div class="plant_timeline__header">
         <h3 class="card__title">Timeline Độ Ẩm Đất</h3>
       </div>
       <div class="plant_timeline__timeline">
-        ${previousItems.map((entry, index) => renderTimelineItem(entry, `Trước đó ${3 - index}`, 'timeline__item_previous', index)).join('')}
-        ${renderTimelineItem(currentItem, '⏱️ Hiện tại', 'timeline__item_current', 3)}
-        ${renderTimelineItem(predictedItem, '🔮 Dự đoán', 'timeline__item_prediction', 4)}
+        ${previousItems.map((entry, index) => renderTimelineItem(entry, `Trước đó ${3 - index}`, 'timeline__item_previous', index, moistureFieldLabel)).join('')}
+        ${renderTimelineItem(currentItem, '⏱️ Hiện tại', 'timeline__item_current', 3, moistureFieldLabel)}
+        ${renderTimelineItem(predictedItem, '🔮 Dự đoán', 'timeline__item_prediction', 4, moistureFieldLabel)}
       </div>
       <div class="plant_timeline__footer" style="display: flex; justify-content: flex-start;">
         <button class="plant_timeline__history_button" type="button" data_open_history>📚 Xem lịch sử</button>
@@ -112,27 +117,28 @@ export function renderPlantTimeline({ root, moisture, timeline = [], onShowHisto
   });
 }
 
-function renderDetailRows(status) {
-  const entries = Object.entries(status || {})
-    .filter(([key, value]) => value !== undefined && value !== null && value !== '' && typeof value !== 'object')
-    .map(([key, value]) => {
-      return `<div class="detail_list__row"><span class="detail_list__label">${key}</span><span class="detail_list__value">${value}</span></div>`;
-    });
-
-  if (!entries.length) {
+function renderDetailRows(status, schema) {
+  if (!status) {
     return '<p class="card__meta">Chua co du lieu chi tiet.</p>';
   }
 
-  return `<div class="detail_list">${entries.join('')}</div>`;
+  const rowsHtml = renderFieldRows({ schema, data: status, fieldKeys: CURRENT_INFO_DETAIL_FIELDS });
+  if (!rowsHtml) {
+    return '<p class="card__meta">Chua co du lieu chi tiet.</p>';
+  }
+
+  return `<div class="detail_list">${rowsHtml}</div>`;
 }
 
-export function renderCurrentPlantInfoWidget({ root, status }) {
+export function renderCurrentPlantInfoWidget({ root, statusPayload }) {
   if (!root) return;
 
+  const status = statusPayload?.data;
+  const schema = statusPayload?.schema;
   const hasStatus = Boolean(status && !status._error);
-  const updatedAt = formatDateTime(status?.capturedAt || status?.timestamp || status?.time);
+  const updatedAt = formatDateTime(status?.receivedAt || status?.received_at || status?.timestamp || status?.time);
   const detailHtml = hasStatus
-    ? renderDetailRows(status)
+    ? renderDetailRows(status, schema)
     : renderEmptyState('[]', 'Chua co du lieu', 'Khong tim thay thong tin trang thai hien tai.');
 
   root.innerHTML = `
@@ -179,11 +185,12 @@ export function renderTimelineView({ root, timelineData, status, onShowHistory }
   const infoRoot = root.querySelector('[data_current_info_root]');
   const timelineRoot = root.querySelector('[data_timeline_root]');
 
-  renderCurrentPlantInfoWidget({ root: infoRoot, status });
+  renderCurrentPlantInfoWidget({ root: infoRoot, statusPayload: status });
 
   if (timelineRoot) {
     renderPlantTimeline({
       root: timelineRoot,
+      schema: timelineData?.schema,
       ...timelineData,
       onShowHistory,
     });

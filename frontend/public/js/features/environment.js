@@ -1,7 +1,11 @@
 import { apiClient } from '../core/api_client.js';
+import { renderSchemaCard } from '../core/schema_renderer.js';
 
 const CACHE_KEY = 'plant_care_environment_cache';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const ENVIRONMENT_SUMMARY_FIELDS = ['weather', 'temperature', 'humidity',, 'clouds', 'wind_speed', 'rain'];
+// const ENVIRONMENT_DETAIL_FIELDS = ['timestamp', 'clouds', 'wind_speed', 'rain', 'source'];
+const ENVIRONMENT_DETAIL_FIELDS = [];
 
 function getCachedEnvironment() {
   try {
@@ -42,7 +46,10 @@ export async function loadEnvironment() {
 }
 
 export function renderEnvironment({ root, environment }) {
-  if (!environment) {
+  const data = environment?.data;
+  const schema = environment?.schema;
+
+  if (!data) {
     root.innerHTML = `
       <article class="shell__error">
         <h2>Không có dữ liệu thời tiết</h2>
@@ -52,73 +59,12 @@ export function renderEnvironment({ root, environment }) {
     return;
   }
 
-  const isCached = environment._cached ? '(từ cache)' : '';
-  const cachedBadge = environment._cached ? '<span class="data_cache_badge">📦 Dữ liệu từ cache</span>' : '';
-
-  root.innerHTML = `
-    <article class="environment_card">
-      <div class="environment_card__header">
-        <div>
-          <h3 class="environment_card__title">Thông tin thời tiết</h3>
-          <p class="environment_card__meta">Dữ liệu môi trường hiện tại ${isCached}</p>
-        </div>
-        ${cachedBadge}
-      </div>
-
-      <div class="environment_grid">
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Thời tiết</div>
-            <div class="environment_metric__value">${environment?.weather || '-'}</div>
-          </div>
-          <span class="environment_metric__icon">☀️</span>
-        </div>
-
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Độ ẩm không khí</div>
-            <div class="environment_metric__value">${environment?.humidity ?? '-'}%</div>
-          </div>
-          <span class="environment_metric__icon">💧</span>
-        </div>
-
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Nhiệt độ</div>
-            <div class="environment_metric__value">${environment?.temperature ?? '-'}°C</div>
-          </div>
-          <span class="environment_metric__icon">🌡️</span>
-        </div>
-
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Mây</div>
-            <div class="environment_metric__value">${environment?.clouds ?? '-'}%</div>
-          </div>
-          <span class="environment_metric__icon">☁️</span>
-        </div>
-
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Tốc độ gió</div>
-            <div class="environment_metric__value">${environment?.wind_speed ?? '-'} m/s</div>
-          </div>
-          <span class="environment_metric__icon">🍃</span>
-        </div>
-
-        <div class="environment_metric">
-          <div class="environment_metric__body">
-            <div class="environment_metric__label">Lượng mưa</div>
-            <div class="environment_metric__value">${environment?.rain ?? environment?.precipitation ?? '-'} mm</div>
-          </div>
-          <span class="environment_metric__icon">🌧️</span>
-        </div>
-      </div>
-
-      <div class="environment_timestamp">
-        Cập nhật: ${environment?.timestamp ? new Date(environment.timestamp * 1000).toLocaleString('vi-VN') : '-'}
-        ${environment?._error ? `<br><span style="color: var(--warning); font-size: 0.85rem;">${environment._error}</span>` : ''}
-      </div>
-    </article>
-  `;
+  root.innerHTML = renderSchemaCard({
+    title: 'Thông tin thời tiết',
+    subtitle: 'Dữ liệu môi trường hiện tại',
+    schema,
+    data,
+    summaryFieldKeys: ENVIRONMENT_SUMMARY_FIELDS,
+    detailFieldKeys: ENVIRONMENT_DETAIL_FIELDS,
+  });
 }

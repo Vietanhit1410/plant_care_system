@@ -123,6 +123,66 @@
   font-size: 0.85rem;
 }
 
+.plant_status__details {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: rgba(46, 159, 107, 0.06);
+  border: 1px solid rgba(46, 159, 107, 0.16);
+}
+
+.plant_status__details_title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.plant_status__detail_list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.plant_status__detail_row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px dashed rgba(46, 159, 107, 0.2);
+}
+
+.plant_status__detail_row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.plant_status__detail_label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.plant_status__detail_value {
+  color: var(--text);
+  font-weight: 600;
+  display: grid;
+  gap: var(--space-2);
+  text-align: right;
+}
+
+.plant_status__detail_image {
+  width: 100%;
+  max-width: 240px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+
+.plant_status__detail_caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 @media (max-width: 1080px) {
   .plant_status__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -140,5 +200,14 @@
 
   .plant_status__health_badge {
     align-self: flex-start;
+  }
+
+  .plant_status__detail_row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .plant_status__detail_value {
+    text-align: left;
   }
 }

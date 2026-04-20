@@ -257,6 +257,22 @@
   font-weight: 600;
 }
 
+.detail_list__image {
+  width: 100%;
+  max-width: 220px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  object-fit: cover;
+  display: block;
+}
+
+.detail_list__caption {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 .is_hidden {
   display: none;
 }

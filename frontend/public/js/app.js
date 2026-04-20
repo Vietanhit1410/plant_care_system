@@ -91,6 +91,7 @@ async function showPlantHistory(root) {
     renderPlantHistory({
       root: panelRoot,
       items: historyData?.items || [],
+      schema: historyData?.schema,
       onClose: hidePlantHistory,
     });
   } catch (error) {
@@ -223,6 +224,7 @@ async function mountPlantHistory(featureRoot) {
     renderPlantHistory({
       root: featureRoot,
       items: historyData?.items || [],
+      schema: historyData?.schema,
     });
   } catch (error) {
     featureRoot.innerHTML = `

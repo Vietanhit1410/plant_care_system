@@ -1,16 +1,27 @@
 # Plant Care System
 
-## Overview
+## Mục tiêu
 
-Plant Care System is a small dashboard + API stack for tracking plant status, soil moisture, and weather context. It stores observations in SQLite, shows moisture timelines, and supports sensor data ingestion.
+Dashboard + API để lưu và xem trạng thái cây, độ ẩm đất, dữ liệu môi trường.
 
-## Key features
+## Kiến trúc
 
-- Environment snapshot (temperature, humidity, weather)
-- Moisture timeline + history from shared observations
-- Camera snapshots for the latest plant image
-- Sensor ingest API for third-party devices
+- Backend Clean Architecture: `backend/app` (domain / application / infrastructure / interfaces)
+- Frontend schema-driven: `frontend/public/js/core/schema_renderer.js`
 
-## Documentation
+## Cấu hình trường dữ liệu
 
-- System specification, conventions, and API details: `SYSTEM_SPEC.md`
+- Nguồn duy nhất: `backend/app/domain/observation_schema.py`
+- Khi thêm field: cập nhật file này, UI tự render theo schema.
+
+## Chạy nhanh
+
+```powershell
+D:\Dreamer\python\plant_care_system\.venv\Scripts\python.exe D:\Dreamer\python\plant_care_system\backend\run.py
+```
+
+```powershell
+start D:\Dreamer\python\plant_care_system\frontend\public\index.html
+```
+
+Tài liệu ngắn: `SYSTEM_SPEC.md`
