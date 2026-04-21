@@ -33,11 +33,71 @@ CREATE TABLE IF NOT EXISTS {OBSERVATION_TABLE['name']} (
 SCHEMA_SQL = _build_schema_sql()
 
 SEED_ROWS = [
-    ("system", "2026-04-18 06:00", 71, 24.8, 78, "Nhiều mây", 70, 2.5, 0.0, "06_00.jpg", "Độ ẩm còn cao sau tưới đêm qua."),
-    ("system", "2026-04-18 09:00", 67, 27.2, 72, "Ít mây", 35, 3.1, 0.0, "09_00.jpg", "Độ ẩm giảm nhẹ khi trời bắt đầu nóng lên."),
-    ("system", "2026-04-18 12:00", 63, 30.1, 65, "Nắng nhẹ", 20, 3.8, 0.0, "12_00.jpg", "Độ ẩm tiếp tục giảm theo thời gian."),
-    ("system", "2026-04-18 15:00", 61, 31.4, 60, "Nắng", 15, 4.2, 0.0, "15_00.jpg", "Mức độ ẩm hiện tại của đất."),
-    ("system", "2026-04-18 18:00", 57, 29.0, 68, "Nhiều mây", 55, 2.9, 0.2, "18_00.jpg", "Nếu không tưới thêm, độ ẩm có thể giảm tiếp."),
+    {
+        "source": "system",
+        "received_at": "2026-04-18 06:00",
+        "moisture": 71,
+        "temperature": 24.8,
+        "humidity": 78,
+        "weather": "Nhiều mây",
+        "clouds": 70,
+        "wind_speed": 2.5,
+        "rain": 0.0,
+        "image_url": "06_00.jpg",
+        "note": "Độ ẩm còn cao sau tưới đêm qua.",
+    },
+    {
+        "source": "system",
+        "received_at": "2026-04-18 09:00",
+        "moisture": 67,
+        "temperature": 27.2,
+        "humidity": 72,
+        "weather": "Ít mây",
+        "clouds": 35,
+        "wind_speed": 3.1,
+        "rain": 0.0,
+        "image_url": "09_00.jpg",
+        "note": "Độ ẩm giảm nhẹ khi trời bắt đầu nóng lên.",
+    },
+    {
+        "source": "system",
+        "received_at": "2026-04-18 12:00",
+        "moisture": 63,
+        "temperature": 30.1,
+        "humidity": 65,
+        "weather": "Nắng nhẹ",
+        "clouds": 20,
+        "wind_speed": 3.8,
+        "rain": 0.0,
+        "image_url": "12_00.jpg",
+        "note": "Độ ẩm tiếp tục giảm theo thời gian.",
+    },
+    {
+        "source": "system",
+        "received_at": "2026-04-18 15:00",
+        "moisture": 61,
+        "temperature": 31.4,
+        "humidity": 60,
+        "weather": "Nắng",
+        "clouds": 15,
+        "wind_speed": 4.2,
+        "rain": 0.0,
+        "image_url": "15_00.jpg",
+        "note": "Mức độ ẩm hiện tại của đất.",
+    },
+    {
+        "source": "system",
+        "received_at": "2026-04-18 18:00",
+        "moisture": 57,
+        "temperature": 29.0,
+        "humidity": 68,
+        "weather": "Nhiều mây",
+        "clouds": 55,
+        "wind_speed": 2.9,
+        "rain": 0.2,
+        "image_url": "18_00.jpg",
+        "note": "Nếu không tưới thêm, độ ẩm có thể giảm tiếp.",
+    },
 ]
 
 
@@ -64,7 +124,7 @@ class ObservationRepository:
                 shutil.copyfile(source, destination)
             else:
                 destination.write_bytes(b"")
-        return str(destination)
+        return f"/media/{self.image_dir.name}/{file_name}"
 
     @staticmethod
     def _table_exists(conn: sqlite3.Connection, table_name: str) -> bool:
@@ -150,20 +210,14 @@ class ObservationRepository:
                     VALUES ({', '.join(['?'] * len(insert_fields))})
                     """,
                     [
-                        (
-                            source,
-                            received_at,
-                            moisture,
-                            temperature,
-                            humidity,
-                            weather,
-                            clouds,
-                            wind_speed,
-                            rain,
-                            self._ensure_seed_image(image_url),
-                            note,
-                        )
-                        for source, received_at, moisture, temperature, humidity, weather, clouds, wind_speed, rain, image_url, note in SEED_ROWS
+                        [
+                            {
+                                **seed_row,
+                                "image_url": self._ensure_seed_image(seed_row.get("image_url", "")),
+                            }.get(field)
+                            for field in insert_fields
+                        ]
+                        for seed_row in SEED_ROWS
                     ],
                 )
             conn.commit()

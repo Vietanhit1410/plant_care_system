@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 
 from backend.app.infrastructure.sqlite_repository import ObservationRepository
@@ -12,6 +12,10 @@ def create_app() -> Flask:
 
     app = Flask(__name__)
     CORS(app)
+
+    @app.get("/media/<path:filename>")
+    def media_file(filename: str):
+        return send_from_directory(repo.media_dir, filename)
 
     deps = {
         "repo": repo,

@@ -29,7 +29,7 @@ def field_key(name: str) -> str:
 
 OBSERVATION_SCHEMA = {
     "fields": [
-        {"key": field_key("received_at"), "label": "Nhận dữ liệu", "format": "datetime", "summary": True},
+        {"key": field_key("received_at"), "label": "Thời gian cập nhật", "format": "datetime", "summary": True},
         {"key": field_key("moisture"), "label": "Độ ẩm đất", "format": "percent", "summary": True},
         {"key": field_key("temperature"), "label": "Nhiệt độ", "format": "celsius", "summary": True},
         {"key": field_key("humidity"), "label": "Độ ẩm không khí", "format": "percent"},
