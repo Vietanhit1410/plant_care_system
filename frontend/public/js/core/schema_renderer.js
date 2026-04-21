@@ -1,4 +1,5 @@
 import { formatDateTime } from './ui_helpers.js';
+import { apiClient } from './api_client.js';
 
 function formatValue(format, value) {
   if (value === undefined || value === null || value === '') return '-';
@@ -37,13 +38,24 @@ function getFieldsByKeys(schema, fieldKeys) {
   return fieldKeys.map(key => fieldMap.get(key)).filter(Boolean);
 }
 
-export function renderFieldRows({ schema, data, fieldKeys }) {
+function normalizeMediaUrl(url) {
+  if (!url) return url;
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('file:')) {
+    return url;
+  }
+  if (url.startsWith('/media/')) {
+    return `${apiClient.baseUrl}${url}`;
+  }
+  return url;
+}
+
+export function renderFieldRows({ schema, data, fieldKeys, showEmpty = false }) {
   const fields = getFieldsByKeys(schema, fieldKeys);
   const rows = fields
     .filter(field => field.format !== 'image')
     .map(field => {
       const value = getFieldValue(data, field.key);
-      if (value === undefined || value === null || value === '') return '';
+      if (!showEmpty && (value === undefined || value === null || value === '')) return '';
       return `
         <div class="plant_status__detail_row">
           <span class="plant_status__detail_label">${field.label}</span>
@@ -54,7 +66,7 @@ export function renderFieldRows({ schema, data, fieldKeys }) {
     .join('');
 
   const imageField = fields.find(field => field.format === 'image');
-  const imageUrl = imageField ? getFieldValue(data, imageField.key) : null;
+  const imageUrl = imageField ? normalizeMediaUrl(getFieldValue(data, imageField.key)) : null;
   const imageRow = imageUrl ? `
     <div class="plant_status__detail_row">
       <span class="plant_status__detail_label">${imageField?.label || 'Ảnh'}</span>
@@ -88,8 +100,8 @@ export function renderSummaryMetrics({ schema, data, summaryFieldKeys }) {
   }).join('');
 }
 
-export function renderSchemaCard({ title, subtitle, schema, data, summaryFieldKeys, detailFieldKeys }) {
-  const detailRows = renderFieldRows({ schema, data, fieldKeys: detailFieldKeys });
+export function renderSchemaCard({ title, subtitle, schema, data, summaryFieldKeys, detailFieldKeys, showEmptyDetails = false }) {
+  const detailRows = renderFieldRows({ schema, data, fieldKeys: detailFieldKeys, showEmpty: showEmptyDetails });
   const summaryMetrics = renderSummaryMetrics({ schema, data, summaryFieldKeys });
 
   return `

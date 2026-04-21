@@ -3,8 +3,7 @@ import { renderSchemaCard } from '../core/schema_renderer.js';
 
 const CACHE_KEY = 'plant_care_environment_cache';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
-const ENVIRONMENT_SUMMARY_FIELDS = ['weather', 'temperature', 'humidity',, 'clouds', 'wind_speed', 'rain'];
-// const ENVIRONMENT_DETAIL_FIELDS = ['timestamp', 'clouds', 'wind_speed', 'rain', 'source'];
+const ENVIRONMENT_SUMMARY_FIELDS = ['weather', 'temperature', 'humidity', 'clouds', 'wind_speed', 'rain'];
 const ENVIRONMENT_DETAIL_FIELDS = [];
 
 function getCachedEnvironment() {

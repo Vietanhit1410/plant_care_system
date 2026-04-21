@@ -14,6 +14,11 @@ def _file_timestamp(value: str | None) -> str:
         return datetime.now().strftime("%Y%m%d_%H%M%S")
 
 
+def _build_media_url(image_dir: Path, filename: str) -> str:
+    safe_name = filename.lstrip("/\\")
+    return f"/media/{image_dir.name}/{safe_name}"
+
+
 def save_upload_file(file_storage, received_at: str, image_dir: Path) -> str:
     image_dir.mkdir(parents=True, exist_ok=True)
     filename = secure_filename(file_storage.filename or "")
@@ -21,7 +26,7 @@ def save_upload_file(file_storage, received_at: str, image_dir: Path) -> str:
         filename = f"sensor_{_file_timestamp(received_at)}.jpg"
     destination = image_dir / filename
     file_storage.save(destination)
-    return str(destination)
+    return _build_media_url(image_dir, destination.name)
 
 
 def save_base64_image(image_base64: str, received_at: str, filename: str | None, image_dir: Path) -> str:
@@ -38,4 +43,4 @@ def save_base64_image(image_base64: str, received_at: str, filename: str | None,
         safe_name = f"sensor_{_file_timestamp(received_at)}.{extension}"
     destination = image_dir / safe_name
     Path(destination).write_bytes(image_bytes)
-    return str(destination)
+    return _build_media_url(image_dir, destination.name)

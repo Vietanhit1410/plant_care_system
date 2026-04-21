@@ -3,9 +3,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  padding: var(--space-5);
+  padding: var(--space-3);
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-2);
 }
 
 .plant_status__header {
@@ -17,13 +17,13 @@
 
 .plant_status__header .card__title {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--text);
 }
 
 .plant_status__header .card__meta {
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: 0.8rem;
   margin: 0;
 }
 
@@ -40,19 +40,40 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
 }
 
+.plant_status__left {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+}
+
+.plant_status__summary {
+  display: grid;
+  gap: var(--space-1);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+}
+
 .plant_status__grid {
   display: grid;
   gap: var(--space-4);
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.plant_status__main {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
 .plant_status__metric {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-md);
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
   background: linear-gradient(180deg, #f5fbf6, #ecf7ee);
   border: 1px solid rgba(47, 143, 70, 0.12);
   box-shadow: 0 10px 24px rgba(23, 48, 31, 0.05);
@@ -80,7 +101,7 @@
 
 .plant_status__metric_label {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.76rem;
   font-weight: normal;
   text-transform: none;
   letter-spacing: normal;
@@ -88,7 +109,7 @@
 
 .plant_status__metric_value {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -141,14 +162,14 @@
 
 .plant_status__detail_list {
   display: grid;
-  gap: var(--space-2);
+  gap: 4px;
 }
 
 .plant_status__detail_row {
   display: flex;
   justify-content: space-between;
   gap: var(--space-3);
-  padding-bottom: var(--space-2);
+  padding-bottom: 4px;
   border-bottom: 1px dashed rgba(46, 159, 107, 0.2);
 }
 
@@ -160,6 +181,7 @@
 .plant_status__detail_label {
   color: var(--text-muted);
   font-weight: 600;
+  font-size: 0.84rem;
 }
 
 .plant_status__detail_value {
@@ -168,6 +190,7 @@
   display: grid;
   gap: var(--space-2);
   text-align: right;
+  font-size: 0.84rem;
 }
 
 .plant_status__detail_image {
@@ -183,31 +206,111 @@
   color: var(--text-muted);
 }
 
+.is_hidden {
+  display: none;
+}
+
+.plant_status__media_row {
+  /* removed: legacy layout */
+}
+
+.plant_status__media {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 0;
+  padding: 0;
+}
+
+.plant_status__media_image {
+  width: min(100%, 520px);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  display: block;
+  border-radius: var(--radius-sm);
+  max-height: 320px;
+}
+
+
+
+.plant_status__media_card {
+  padding: 0; /* 🔥 bỏ padding gây viền trắng */
+  background: transparent; /* 🔥 nếu không cần nền */
+  border-radius: var(--radius-md);
+  overflow: hidden; /* 🔥 đảm bảo ảnh không tràn */
+}
+
+.plant_status__detail_card {
+  background: rgba(46, 159, 107, 0.04);
+  border: 1px solid rgba(46, 159, 107, 0.12);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  gap: var(--space-2);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.plant_status__detail_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.plant_status__detail_panel {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.plant_status__detail_panel .plant_status__detail_list {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+.plant_status__detail_action {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-width: 1080px) {
-  .plant_status__grid {
+  .plant_status__main {
+    grid-template-columns: 1fr;
+  }
+
+  .plant_status__left {
+    grid-template-rows: auto auto;
+  }
+
+  .plant_status__summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #environment_root .plant_status__summary,
+  #environment_root .plant_status__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
-  .plant_status__grid {
+  .plant_status__summary {
     grid-template-columns: 1fr;
   }
 
-  .plant_status__header {
-    flex-direction: column;
+  #environment_root .plant_status__summary,
+  #environment_root .plant_status__grid {
+    grid-template-columns: 1fr;
   }
 
-  .plant_status__health_badge {
-    align-self: flex-start;
-  }
-
-  .plant_status__detail_row {
+  .plant_status__detail_header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .plant_status__detail_value {
-    text-align: left;
+  .plant_status__detail_action .button {
+    width: 100%;
   }
 }
